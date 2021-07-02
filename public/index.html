@@ -23,20 +23,27 @@
       <div class="col">
         <h2>Add School Members</h2>
         <form>
-          <label for="role" class="form-label">Type of person</label>
-          <select class="form-select" aria-label="Default select example">
+          <label class="form-label" for="name">Student Name</label>
+          <input type="text" class="form-control name" placeholder="Name">
+          <label for="role" class="form-label mt-3">Role in School</label>
+          <select class="form-select role" aria-label="Default select example">
             <option selected>Open this select menu</option>
             <option value="teacher">Teacher</option>
             <option value="student">Student</option>
             <option value="admin">Admin</option>
           </select>
+          <label class="form-label" for="num-students">Number of Students</label>
+          <input type="number" class="form-control num-students" placeholder="Name">
+          <button id="add-person" class="btn btn-primary mt-2" type="submit">Create School Member</button>
         </form>
       </div>
       <div class="col">
         
       </div>
       <div class="col">
-        
+        <div class="show-roster">
+          <!-- members here -->
+        </div>
       </div>
     </div>
   </div>
