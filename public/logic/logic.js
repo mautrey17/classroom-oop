@@ -1,7 +1,6 @@
 //html components
 const role = document.querySelector(".role");
 const idNum = document.querySelector(".idNum");
-const showRoster = document.querySelector(".show-roster");
 const addPerson = document.querySelector("#add-person");
 const personName = document.querySelector(".name");
 const numStudents = document.querySelector(".num-students");
@@ -107,7 +106,6 @@ role.addEventListener("change", function () {
 //function to create HTML for each table row
 function createTableRow(role, name, extra, oop) {
   console.log(extra);
-  let personDiv = document.createElement("p");
   let tableRow = document.createElement("tr");
   let tableNum = document.createElement("th");
   tableNum.textContent = tableCount;
@@ -152,12 +150,10 @@ function createTableRow(role, name, extra, oop) {
   overwriteBtn.addEventListener("click", function () {
     oop.assignedRole();
   });
-  overwriteBtn.className = "btn btn-outline-success";
+  overwriteBtn.className = "btn btn-outline-secondary";
   overwriteBtn.textContent = "My Information";
   td5.appendChild(overwriteBtn);
 
-  personDiv.textContent = personName.value;
-  showRoster.appendChild(personDiv);
   rosterList.push(oop);
   tableRow.append(tableNum, td1, td2, td3, td4, td5);
   newRow.appendChild(tableRow);

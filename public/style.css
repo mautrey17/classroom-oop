@@ -1,4 +1,4 @@
-.show-roster{
+.member-form{
     border: 2px solid #444;
     border-radius: 15px;
 }
@@ -6,3 +6,4 @@
 .hide{
     display: none;
 }
+
