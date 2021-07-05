@@ -27,7 +27,7 @@
           <input type="text" class="form-control name" placeholder="Name">
           <label for="role" class="form-label mt-3">Role in School</label>
           <select class="form-select role" aria-label="Default select example">
-            <option selected>Open this select menu</option>
+            <option selected value="none">No role yet</option>
             <option value="teacher">Teacher</option>
             <option value="student">Student</option>
             <option value="admin">Admin</option>
@@ -88,6 +88,10 @@
       </div>
     </div>
 
+    <div class="show-alert">
+
+    </div>
+
     <table class="table">
       <thead>
         <tr>
@@ -96,6 +100,7 @@
           <th scope="col">Role</th>
           <th scope="col">Generic Alert</th>
           <th scope="col">Role Specific Alert</th>
+          <th scope="col">Role Assigned Yet?</th>
         </tr>
       </thead>
       <tbody class="new-row">

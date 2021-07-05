@@ -13,12 +13,12 @@ const teacherQuestion = document.querySelector('.teacher-question');
 const studentQuestion = document.querySelector('.student-question');
 const adminQuestion = document.querySelector('.admin-question');
 const message = document.querySelector('.message');
+const showAlert = document.querySelector('.show-alert');
 // const btnModal = document.querySelector('#btnModal');
 // var myModal = new bootstrap.Modal(document.getElementById('myModal'), options);
 
-const teacherList = [];
-const studentList = [];
-const adminList = [];
+const rosterList = [];
+
 let tableCount = 1;
 
 class SchoolMember{
@@ -28,7 +28,16 @@ class SchoolMember{
     }
 
     showName(){
-        alert(`hi, my name is ${this.name}`)
+
+        showAlert.firstChild ? showAlert.removeChild(showAlert.firstChild) : ''
+        let newAlert = document.createElement('div');
+        newAlert.className = 'alert alert-info';
+        newAlert.textContent = `hi, my name is ${this.name}`
+        showAlert.appendChild(newAlert)
+    }
+
+    assignedRole(){
+        createAlert('I have not been assigned a role yet!')
     }
 }
 
@@ -39,8 +48,12 @@ class Teacher extends SchoolMember{
     }
 
     showStudents(){
-        alert(`${this.name} teaches ${this.students} students!`)
-    }    
+        createAlert(`${this.name} teaches ${this.students} students!`)
+    }
+
+    assignedRole(){
+        createAlert('I am a teacher')
+    }
 }
 
 class Student extends SchoolMember{
@@ -50,8 +63,11 @@ class Student extends SchoolMember{
     }
 
     showFavorite(){
-        alert(`${this.name}'s favorite class is ${this.favorite}!`)
-    }    
+        createAlert(`${this.name}'s favorite class is ${this.favorite}!`)
+    }
+    assignedRole(){
+        createAlert('I am a student!')
+    }
 }
 
 class Admin extends SchoolMember{
@@ -61,16 +77,22 @@ class Admin extends SchoolMember{
     }
 
     showGrade(){
-        alert(`${this.name} is admin over grade ${this.grade}!`)
-    }    
+        createAlert(`${this.name} is admin over grade ${this.grade}!`)
+    }
+    assignedRole(){
+        createAlert('I am admin!')
+    }
 }
 
-// btnModal.addEventListener('click', function(){
-//     modal.show();
-// })
+const createAlert = (text) => {
+    showAlert.firstChild ? showAlert.removeChild(showAlert.firstChild) : ''
+        let newAlert = document.createElement('div');
+        newAlert.className = 'alert alert-info';
+        newAlert.textContent = text
+        showAlert.appendChild(newAlert)
+}
 
 role.addEventListener('change', function(){
-    console.log('success')
     role.value === 'teacher' ? teacherQuestion.className = 'test' : teacherQuestion.className = 'hide';
 
     role.value === 'student' ? studentQuestion.className = 'test' : studentQuestion.className = 'hide';
@@ -111,16 +133,28 @@ function createTableRow(role, name, extra, oop) {
             case 'admin':
                 oop.showGrade()
                 break;
+            default:
+                oop.assignedRole()
+                break;
         }
     })
     roleBtn.className = 'btn btn-outline-success'
     roleBtn.textContent = 'My Information';
     td4.appendChild(roleBtn)
 
+    let td5 = document.createElement('td')
+    let overwriteBtn = document.createElement('button')
+    overwriteBtn.addEventListener('click', function(){
+        oop.assignedRole();
+    })
+    overwriteBtn.className = 'btn btn-outline-success'
+    overwriteBtn.textContent = 'My Information';
+    td5.appendChild(overwriteBtn)
+
     personDiv.textContent = personName.value;
     showRoster.appendChild(personDiv);
-    teacherList.push(oop);
-    tableRow.append(tableNum, td1, td2, td3, td4);
+    rosterList.push(oop);
+    tableRow.append(tableNum, td1, td2, td3, td4, td5);
     newRow.appendChild(tableRow);
     tableCount++;
 }
@@ -152,6 +186,10 @@ addPerson.addEventListener('click', function(e){
             let admin = new Admin(newRole, newName, newGrade)
             
             createTableRow(newRole, newName, newGrade, admin)
+            break;
+        default:
+            let schoolMember = new SchoolMember(newRole, newName)
+            createTableRow(newRole, newName, '', schoolMember)
             break;
     }
 
