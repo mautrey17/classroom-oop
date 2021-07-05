@@ -44,6 +44,17 @@ class Teacher extends SchoolMember{
     }    
 }
 
+class Student extends SchoolMember{
+    constructor(role, name, favorite){
+        super(role, name);
+        this.favorite = favorite
+    }
+
+    showFavorite(){
+        alert(`${this.name}'s favorite class is ${this.favorite}!`)
+    }    
+}
+
 // btnModal.addEventListener('click', function(){
 //     modal.show();
 // })
@@ -57,50 +68,73 @@ role.addEventListener('change', function(){
     role.value === 'admin' ? adminQuestion.className = 'test' : adminQuestion.className = 'hide';
 })
 
+function createTableRow(role, name, extra, oop) {
+    console.log(extra)
+    let personDiv = document.createElement('p');
+    let tableRow = document.createElement('tr');
+    let tableNum = document.createElement('th');
+    tableNum.textContent = tableCount;
+    let td1 = document.createElement('td')
+    td1.textContent = name;
+    let td2 = document.createElement('td')
+    td2.textContent = role;
+
+    let td3 = document.createElement('td')
+    let generalBtn = document.createElement('button')
+    generalBtn.addEventListener('click', function(){
+        oop.showName()
+    })
+    generalBtn.className = 'btn btn-outline-info'
+    generalBtn.textContent = 'Generic Alert';
+    td3.appendChild(generalBtn)
+    
+    let td4 = document.createElement('td')
+    let roleBtn = document.createElement('button')
+    roleBtn.addEventListener('click', function(){
+        switch(role){
+            case 'teacher':
+                oop.showStudents()
+                break;
+            case 'student':
+                oop.showFavorite()
+                break;
+        }
+    })
+    roleBtn.className = 'btn btn-outline-success'
+    roleBtn.textContent = 'My Information';
+    td4.appendChild(roleBtn)
+
+    personDiv.textContent = personName.value;
+    showRoster.appendChild(personDiv);
+    teacherList.push(oop);
+    tableRow.append(tableNum, td1, td2, td3, td4);
+    newRow.appendChild(tableRow);
+    tableCount++;
+}
+
 addPerson.addEventListener('click', function(e){
     e.preventDefault();
     console.log('here');
 
     let newRole = role.value;
     let newName = personName.value;
-    let newNum = numStudents.value;
+    // let newNum = numStudents.value;
     
-
-    if(role.value === 'teacher'){
-        const teacher = new Teacher(newRole, newName, newNum)
-        const personDiv = document.createElement('p');
-        const tableRow = document.createElement('tr');
-        const tableNum = document.createElement('th');
-        tableNum.textContent = tableCount;
-        const td1 = document.createElement('td')
-        td1.textContent = newName;
-        const td2 = document.createElement('td')
-        td2.textContent = newRole;
-
-        const td3 = document.createElement('td')
-        const generalBtn = document.createElement('button')
-        generalBtn.addEventListener('click', function(){
-            teacher.showName()
-        })
-        generalBtn.className = 'btn btn-outline-info'
-        generalBtn.textContent = 'Generic Alert';
-        td3.appendChild(generalBtn)
-        
-        const td4 = document.createElement('td')
-        const roleBtn = document.createElement('button')
-        roleBtn.addEventListener('click', function(){
-            teacher.showStudents()
-        })
-        roleBtn.className = 'btn btn-outline-success'
-        roleBtn.textContent = 'My Information';
-        td4.appendChild(roleBtn)
-
-        personDiv.textContent = personName.value;
-        showRoster.appendChild(personDiv);
-        teacherList.push(teacher);
-        console.log(teacherList);
-        tableRow.append(tableNum, td1, td2, td3, td4);
-        newRow.appendChild(tableRow);
-        tableCount++;
+    
+    switch(role.value){
+        case 'teacher':
+            let newNum = numStudents.value;
+            let teacher = new Teacher(newRole, newName, newNum);
+            
+            createTableRow(newRole, newName, newNum, teacher)
+            break;
+        case 'student':
+            let newFavorite = favorite.value;
+            let student = new Student(newRole, newName, newFavorite)
+            
+            createTableRow(newRole, newName, newFavorite, student)
+            break;
     }
+
+
 })
