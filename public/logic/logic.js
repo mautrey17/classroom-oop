@@ -12,10 +12,9 @@ const grade = document.querySelector('.grade');
 const teacherQuestion = document.querySelector('.teacher-question');
 const studentQuestion = document.querySelector('.student-question');
 const adminQuestion = document.querySelector('.admin-question');
+const message = document.querySelector('.message');
 // const btnModal = document.querySelector('#btnModal');
 // var myModal = new bootstrap.Modal(document.getElementById('myModal'), options);
-var myModal = document.getElementById('myModal')
-var myInput = document.getElementById('myInput')
 
 const teacherList = [];
 const studentList = [];
@@ -30,7 +29,7 @@ class SchoolMember{
     }
 
     showName(){
-
+        alert(`hi, my name is ${this.name}`)
     }
 }
 
@@ -40,7 +39,7 @@ class Teacher extends SchoolMember{
         this.students = students
     }
 
-    showGPA(){
+    showStudents(){
         alert(`${this.name} teaches ${this.students} students!`)
     }    
 }
@@ -77,12 +76,19 @@ addPerson.addEventListener('click', function(e){
         td1.textContent = newName;
         const td2 = document.createElement('td')
         td2.textContent = newRole;
+        const td3 = document.createElement('td')
+        const newBtn = document.createElement('button')
+        newBtn.addEventListener('click', function(){
+            teacher.showStudents()
+        })
+        newBtn.className = 'btn btn-outline-success'
+        newBtn.textContent = 'My Information';
+        td3.appendChild
         personDiv.textContent = personName.value;
         showRoster.appendChild(personDiv);
-        teacher.showGPA();
         teacherList.push(teacher);
         console.log(teacherList);
-        tableRow.append(tableNum, td1, td2);
+        tableRow.append(tableNum, td1, td2, newBtn);
         newRow.appendChild(tableRow);
         tableCount++;
     }
