@@ -76,19 +76,30 @@ addPerson.addEventListener('click', function(e){
         td1.textContent = newName;
         const td2 = document.createElement('td')
         td2.textContent = newRole;
+
         const td3 = document.createElement('td')
-        const newBtn = document.createElement('button')
-        newBtn.addEventListener('click', function(){
+        const generalBtn = document.createElement('button')
+        generalBtn.addEventListener('click', function(){
+            teacher.showName()
+        })
+        generalBtn.className = 'btn btn-outline-info'
+        generalBtn.textContent = 'Generic Alert';
+        td3.appendChild(generalBtn)
+        
+        const td4 = document.createElement('td')
+        const roleBtn = document.createElement('button')
+        roleBtn.addEventListener('click', function(){
             teacher.showStudents()
         })
-        newBtn.className = 'btn btn-outline-success'
-        newBtn.textContent = 'My Information';
-        td3.appendChild
+        roleBtn.className = 'btn btn-outline-success'
+        roleBtn.textContent = 'My Information';
+        td4.appendChild(roleBtn)
+
         personDiv.textContent = personName.value;
         showRoster.appendChild(personDiv);
         teacherList.push(teacher);
         console.log(teacherList);
-        tableRow.append(tableNum, td1, td2, newBtn);
+        tableRow.append(tableNum, td1, td2, td3, td4);
         newRow.appendChild(tableRow);
         tableCount++;
     }
