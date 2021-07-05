@@ -25,7 +25,6 @@ class SchoolMember{
     constructor(role, name){
         this.role = role;
         this.name = name;
-        // this.idnum = idnum;
     }
 
     showName(){
@@ -52,6 +51,17 @@ class Student extends SchoolMember{
 
     showFavorite(){
         alert(`${this.name}'s favorite class is ${this.favorite}!`)
+    }    
+}
+
+class Admin extends SchoolMember{
+    constructor(role, name, grade){
+        super(role, name);
+        this.grade = grade
+    }
+
+    showGrade(){
+        alert(`${this.name} is admin over grade ${this.grade}!`)
     }    
 }
 
@@ -98,6 +108,9 @@ function createTableRow(role, name, extra, oop) {
             case 'student':
                 oop.showFavorite()
                 break;
+            case 'admin':
+                oop.showGrade()
+                break;
         }
     })
     roleBtn.className = 'btn btn-outline-success'
@@ -133,6 +146,12 @@ addPerson.addEventListener('click', function(e){
             let student = new Student(newRole, newName, newFavorite)
             
             createTableRow(newRole, newName, newFavorite, student)
+            break;
+        case 'admin':
+            let newGrade = grade.value;
+            let admin = new Admin(newRole, newName, newGrade)
+            
+            createTableRow(newRole, newName, newGrade, admin)
             break;
     }
 
