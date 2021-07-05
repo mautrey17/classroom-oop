@@ -7,6 +7,11 @@ const personName = document.querySelector('.name');
 const numStudents = document.querySelector('.num-students');
 const modal = document.querySelector('#exampleModal');
 const newRow = document.querySelector('.new-row');
+const favorite = document.querySelector('.favorite');
+const grade = document.querySelector('.grade');
+const teacherQuestion = document.querySelector('.teacher-question');
+const studentQuestion = document.querySelector('.student-question');
+const adminQuestion = document.querySelector('.admin-question');
 // const btnModal = document.querySelector('#btnModal');
 // var myModal = new bootstrap.Modal(document.getElementById('myModal'), options);
 var myModal = document.getElementById('myModal')
@@ -44,7 +49,14 @@ class Teacher extends SchoolMember{
 //     modal.show();
 // })
 
+role.addEventListener('change', function(){
+    console.log('success')
+    role.value === 'teacher' ? teacherQuestion.className = 'test' : teacherQuestion.className = 'hide';
 
+    role.value === 'student' ? studentQuestion.className = 'test' : studentQuestion.className = 'hide';
+
+    role.value === 'admin' ? adminQuestion.className = 'test' : adminQuestion.className = 'hide';
+})
 
 addPerson.addEventListener('click', function(e){
     e.preventDefault();
@@ -64,7 +76,7 @@ addPerson.addEventListener('click', function(e){
         const td1 = document.createElement('td')
         td1.textContent = newName;
         const td2 = document.createElement('td')
-        td2.textContent = newNum;
+        td2.textContent = newRole;
         personDiv.textContent = personName.value;
         showRoster.appendChild(personDiv);
         teacher.showGPA();
